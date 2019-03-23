@@ -1,0 +1,187 @@
+{
+	"variables": [],
+	"info": {
+		"name": "agrostar_challenge",
+		"_postman_id": "1dae2f11-2e2d-0d43-01e5-0c46b7ce3ad9",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create New Repository-Pass",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"repo-name\", jsonData.name);",
+							"tests[\"I get response status as 201 for create new repository Endpoint.\"] = responseCode.code === 201;",
+							"tests[\"I have verified that repo is created with given name successfully\"] = jsonData.name === postman.getGlobalVariable('repoName');"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"postman.setGlobalVariable('repoName', \"Agro-India\"+Math.floor(Math.random() * 1100));"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://api.github.com/user/repos?oauth_consumer_key&oauth_token=5d89069b419065fb6ddf5387f057e269f82ad5ae&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1553338513&oauth_nonce=0i3efG&oauth_version=1.0&oauth_signature=d1B7RirZdwwpPvnDJd+BR7cb/wU=",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"user",
+						"repos"
+					],
+					"query": [
+						{
+							"key": "oauth_consumer_key",
+							"value": "",
+							"equals": false,
+							"description": ""
+						},
+						{
+							"key": "oauth_token",
+							"value": "5d89069b419065fb6ddf5387f057e269f82ad5ae",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "oauth_signature_method",
+							"value": "HMAC-SHA1",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "oauth_timestamp",
+							"value": "1553338513",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "oauth_nonce",
+							"value": "0i3efG",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "oauth_version",
+							"value": "1.0",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "oauth_signature",
+							"value": "d1B7RirZdwwpPvnDJd+BR7cb/wU=",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"{{repoName}}\",\r\n  \"description\": \"Lets do it\",\r\n  \"homepage\": \"https://github.com\",\r\n  \"private\": false,\r\n  \"has_issues\": true,\r\n  \"has_projects\": true,\r\n  \"has_wiki\": true\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get the repository details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"I get Status code as 200\"] = responseCode.code === 200;",
+							"tests[\"I get the Repository Name as \"+postman.getGlobalVariable(\"repoName\")] = jsonData.name === postman.getGlobalVariable(\"repoName\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://api.github.com/repos/OnlyForCoding/{{repoName}}?oauth_token=5d89069b419065fb6ddf5387f057e269f82ad5ae&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1553338169&oauth_nonce=JquItp&oauth_version=1.0&oauth_signature=DsqvTMz55CVlAvYyoPmBLSXdI2Y=",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"repos",
+						"OnlyForCoding",
+						"{{repoName}}"
+					],
+					"query": [
+						{
+							"key": "oauth_token",
+							"value": "5d89069b419065fb6ddf5387f057e269f82ad5ae",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "oauth_signature_method",
+							"value": "HMAC-SHA1",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "oauth_timestamp",
+							"value": "1553338169",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "oauth_nonce",
+							"value": "JquItp",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "oauth_version",
+							"value": "1.0",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "oauth_signature",
+							"value": "DsqvTMz55CVlAvYyoPmBLSXdI2Y=",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

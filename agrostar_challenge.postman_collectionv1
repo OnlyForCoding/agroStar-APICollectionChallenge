@@ -1,0 +1,159 @@
+{
+	"id": "1dae2f11-2e2d-0d43-01e5-0c46b7ce3ad9",
+	"name": "agrostar_challenge",
+	"description": "",
+	"order": [
+		"65699a71-17cc-7ada-7e8b-2a52a4cf28bf",
+		"74584e4f-e40f-f2ab-a15d-fbb3e1489be6"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1553324175553,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "65699a71-17cc-7ada-7e8b-2a52a4cf28bf",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://api.github.com/user/repos?oauth_consumer_key&oauth_token=5d89069b419065fb6ddf5387f057e269f82ad5ae&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1553338513&oauth_nonce=0i3efG&oauth_version=1.0&oauth_signature=d1B7RirZdwwpPvnDJd+BR7cb/wU=",
+			"queryParams": [
+				{
+					"key": "oauth_consumer_key",
+					"value": "",
+					"equals": false,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "oauth_token",
+					"value": "5d89069b419065fb6ddf5387f057e269f82ad5ae",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "oauth_signature_method",
+					"value": "HMAC-SHA1",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "oauth_timestamp",
+					"value": "1553338513",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "oauth_nonce",
+					"value": "0i3efG",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "oauth_version",
+					"value": "1.0",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "oauth_signature",
+					"value": "d1B7RirZdwwpPvnDJd+BR7cb/wU=",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": "postman.setGlobalVariable('repoName', \"Agro-India\"+Math.floor(Math.random() * 1100));",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "var jsonData = JSON.parse(responseBody);\npostman.setEnvironmentVariable(\"repo-name\", jsonData.name);\ntests[\"I get response status as 201 for create new repository Endpoint.\"] = responseCode.code === 201;\ntests[\"I have verified that repo is created with given name successfully\"] = jsonData.name === postman.getGlobalVariable('repoName');",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1553338607962,
+			"name": "Create New Repository-Pass",
+			"description": "",
+			"collectionId": "1dae2f11-2e2d-0d43-01e5-0c46b7ce3ad9",
+			"responses": [],
+			"rawModeData": "{\r\n  \"name\": \"{{repoName}}\",\r\n  \"description\": \"Lets do it\",\r\n  \"homepage\": \"https://github.com\",\r\n  \"private\": false,\r\n  \"has_issues\": true,\r\n  \"has_projects\": true,\r\n  \"has_wiki\": true\r\n}"
+		},
+		{
+			"id": "74584e4f-e40f-f2ab-a15d-fbb3e1489be6",
+			"headers": "",
+			"headerData": [],
+			"url": "https://api.github.com/repos/OnlyForCoding/{{repoName}}?oauth_token=5d89069b419065fb6ddf5387f057e269f82ad5ae&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1553338169&oauth_nonce=JquItp&oauth_version=1.0&oauth_signature=DsqvTMz55CVlAvYyoPmBLSXdI2Y=",
+			"queryParams": [
+				{
+					"key": "oauth_token",
+					"value": "5d89069b419065fb6ddf5387f057e269f82ad5ae",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "oauth_signature_method",
+					"value": "HMAC-SHA1",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "oauth_timestamp",
+					"value": "1553338169",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "oauth_nonce",
+					"value": "JquItp",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "oauth_version",
+					"value": "1.0",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "oauth_signature",
+					"value": "DsqvTMz55CVlAvYyoPmBLSXdI2Y=",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": "var jsonData = JSON.parse(responseBody);\ntests[\"I get Status code as 200\"] = responseCode.code === 200;\ntests[\"I get the Repository Name as \"+postman.getGlobalVariable(\"repoName\")] = jsonData.name === postman.getGlobalVariable(\"repoName\");",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1553338604331,
+			"name": "get the repository details",
+			"description": "",
+			"collectionId": "1dae2f11-2e2d-0d43-01e5-0c46b7ce3ad9",
+			"responses": []
+		}
+	]
+}
